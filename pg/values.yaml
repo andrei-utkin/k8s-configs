@@ -1,0 +1,42 @@
+postgresql:
+  replicaCount: 1
+  image:
+    repository: postgres
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  service:
+    type: NodePort
+    port: 5432
+    nodePort: 30100
+  persistence:
+    enabled: true
+    accessModes:
+      - ReadWriteOnce
+    size: 10Gi
+    storageClass: ""
+    hostPath: /home/postgresql/data
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: []
+  credentials:
+    secretName: "{{ .Release.Name }}-postgresql-secret"
+
+pgadmin:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: dpage/pgadmin4
+    tag: "latest"
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30101
+  credentials:
+    secretName: "{{ .Release.Name }}-pgadmin-secret"
+
+# postgresqlUsername: ""
+# postgresqlPassword: ""
+# postgresqlDatabase: ""
+# pgAdminEmail: ""
+# pgAdminPassword: ""

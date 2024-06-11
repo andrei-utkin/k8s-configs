@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-postgresql
+  labels:
+    app: {{ .Release.Name }}-postgresql
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-postgresql
+  serviceName: "{{ .Release.Name }}-postgresql"
+  replicas: {{ .Values.postgresql.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-postgresql
+    spec:
+      containers:
+      - name: postgresql
+        image: "{{ .Values.postgresql.image.repository }}:{{ .Values.postgresql.image.tag }}"
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name:  {{ .Release.Name }}-postgresql-secrets
+              key: postgresql-username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name:  {{ .Release.Name }}-postgresql-secrets
+              key: postgresql-password
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name:  {{ .Release.Name }}-postgresql-secrets
+              key: postgresql-database
