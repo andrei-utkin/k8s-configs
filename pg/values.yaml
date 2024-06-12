@@ -34,6 +34,8 @@ pgadmin:
     nodePort: 30101
   credentials:
     secretName: "{{ .Release.Name }}-pgadmin-secret"
+  ingress:
+    host: pgadmin.local
 
 # postgresqlUsername: ""
 # postgresqlPassword: ""

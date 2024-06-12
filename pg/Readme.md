@@ -6,3 +6,6 @@ kubectl get services
 http://<minikube-ip>:30008
 
 minikube start
+
+minikube addons enable ingress
+
