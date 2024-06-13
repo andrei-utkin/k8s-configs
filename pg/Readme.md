@@ -1,11 +1,2 @@
 helm install my-postgresql ./ -f secrets-values.yaml
 
-kubectl get pods
-kubectl get services
-
-http://<minikube-ip>:30008
-
-minikube start
-
-minikube addons enable ingress
-

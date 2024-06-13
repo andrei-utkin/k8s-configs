@@ -36,3 +36,14 @@ spec:
             secretKeyRef:
               name:  {{ .Release.Name }}-postgresql-secrets
               key: postgresql-database
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: {{ .Values.postgresql.persistence.size }}
