@@ -1,4 +1,4 @@
-nodeName: minikube
+nodeName: "minikube"
 
 postgresql:
   replicaCount: 1
@@ -15,8 +15,8 @@ postgresql:
     accessModes:
       - ReadWriteOnce
     size: 10Gi
-    storageClass: ""
-    hostPath: /mnt/data/postgres
+    storageClass: "manual"
+    hostPath: "/mnt/data/postgres"
   resources: {}
   nodeSelector: {}
   tolerations: []
